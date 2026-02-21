@@ -1,0 +1,12 @@
+{
+    "name": "cartify",
+    "version": "1.0.0",
+    "description": "Cartify E-Commerce Platform",
+    "scripts": {
+        "install:all": "cd server && npm install && cd ../client && npm install",
+        "build:client": "cd client && npm run build",
+        "start": "cd server && node server.js",
+        "build": "npm run install:all && npm run build:client",
+        "seed": "cd server && node seed.js"
+    }
+}

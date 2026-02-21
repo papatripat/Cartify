@@ -44,6 +44,14 @@ app.get('/api/health', (req, res) => {
     res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
+// Serve frontend in production
+const path = require('path');
+const clientBuild = path.join(__dirname, '..', 'client', 'dist');
+app.use(express.static(clientBuild));
+app.get('*', (req, res) => {
+    res.sendFile(path.join(clientBuild, 'index.html'));
+});
+
 // Socket.IO connection
 io.on('connection', (socket) => {
     console.log(`Client connected: ${socket.id}`);
