@@ -29,7 +29,7 @@ A full-stack e-commerce platform built with **React, Node.js, MongoDB, and Strip
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/cartify.git
+git clone https://github.com/papatripat/cartify.git
 cd cartify
 
 # Install backend dependencies
