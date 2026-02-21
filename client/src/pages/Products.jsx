@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Search } from 'lucide-react'
-import axios from 'axios'
+import api from '../api'
 import ProductCard from '../components/ProductCard'
 import { useSocket } from '../context/SocketContext'
 
@@ -27,7 +27,7 @@ export default function Products() {
         if (search) params.append('search', search)
         if (sort) params.append('sort', sort)
 
-        axios.get(`/api/products?${params}`)
+        api.get(`/api/products?${params}`)
             .then(res => { setProducts(res.data); setLoading(false) })
             .catch(() => setLoading(false))
     }

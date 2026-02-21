@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { CreditCard, MapPin, Lock } from 'lucide-react'
 import { loadStripe } from '@stripe/stripe-js'
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
-import axios from 'axios'
+import api from '../api'
 import { useCart } from '../context/CartContext'
 
 const stripePromise = loadStripe('pk_test_51T3AMyCQK2zawLgjRIrTDEoN5s7cjjXeAYszvdADShKGtWFevrWsR4FhjC4kCt7xeWRwEHW9InDncehOIjASQUzk00B9tqd4RD')
@@ -48,7 +48,7 @@ function CheckoutForm() {
 
         try {
             // Create PaymentIntent
-            const { data } = await axios.post('/api/payment/create-intent', {
+            const { data } = await api.post('/api/payment/create-intent', {
                 amount: total
             })
 
@@ -67,7 +67,7 @@ function CheckoutForm() {
             }
 
             // Create order
-            await axios.post('/api/orders', {
+            await api.post('/api/orders', {
                 items: items.map(i => ({
                     product: i._id,
                     name: i.name,

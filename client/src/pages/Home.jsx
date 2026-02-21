@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, Sparkles, Zap, Shield, Truck } from 'lucide-react'
-import axios from 'axios'
+import api from '../api'
 import ProductCard from '../components/ProductCard'
 
 export default function Home() {
@@ -9,7 +9,7 @@ export default function Home() {
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        axios.get('/api/products?featured=true')
+        api.get('/api/products?featured=true')
             .then(res => { setFeatured(res.data); setLoading(false) })
             .catch(() => setLoading(false))
     }, [])

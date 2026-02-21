@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { LayoutDashboard, Package, ShoppingBag, BarChart3 } from 'lucide-react'
-import axios from 'axios'
+import api from '../../api'
 
 export default function AdminOrders() {
     const [orders, setOrders] = useState([])
@@ -16,7 +16,7 @@ export default function AdminOrders() {
     ]
 
     const fetchOrders = () => {
-        axios.get('/api/orders')
+        api.get('/api/orders')
             .then(res => { setOrders(res.data); setLoading(false) })
             .catch(() => setLoading(false))
     }
@@ -25,7 +25,7 @@ export default function AdminOrders() {
 
     const updateStatus = async (id, orderStatus) => {
         try {
-            await axios.put(`/api/orders/${id}`, { orderStatus })
+            await api.put(`/api/orders/${id}`, { orderStatus })
             fetchOrders()
         } catch (err) {
             alert('Error updating order')

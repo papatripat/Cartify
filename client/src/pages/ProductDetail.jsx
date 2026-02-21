@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { ShoppingCart, ArrowLeft, Minus, Plus, Package } from 'lucide-react'
-import axios from 'axios'
+import api from '../api'
 import { useCart } from '../context/CartContext'
 import { useSocket } from '../context/SocketContext'
 
@@ -14,7 +14,7 @@ export default function ProductDetail() {
     const { socket } = useSocket()
 
     useEffect(() => {
-        axios.get(`/api/products/${id}`)
+        api.get(`/api/products/${id}`)
             .then(res => { setProduct(res.data); setLoading(false) })
             .catch(() => setLoading(false))
     }, [id])

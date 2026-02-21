@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { LayoutDashboard, Package, ShoppingBag, BarChart3, DollarSign, AlertTriangle, TrendingUp } from 'lucide-react'
-import axios from 'axios'
+import api from '../../api'
 import { useSocket } from '../../context/SocketContext'
 
 export default function Dashboard() {
@@ -11,7 +11,7 @@ export default function Dashboard() {
     const { connected } = useSocket()
 
     useEffect(() => {
-        axios.get('/api/orders/stats')
+        api.get('/api/orders/stats')
             .then(res => { setStats(res.data); setLoading(false) })
             .catch(() => setLoading(false))
     }, [])

@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react'
-import axios from 'axios'
+import api from '../api'
 
 const AuthContext = createContext()
 
@@ -14,31 +14,31 @@ export function AuthProvider({ children }) {
         if (stored) {
             const parsed = JSON.parse(stored)
             setUser(parsed)
-            axios.defaults.headers.common['Authorization'] = `Bearer ${parsed.token}`
+            api.defaults.headers.common['Authorization'] = `Bearer ${parsed.token}`
         }
         setLoading(false)
     }, [])
 
     const login = async (email, password) => {
-        const { data } = await axios.post('/api/auth/login', { email, password })
+        const { data } = await api.post('/api/auth/login', { email, password })
         setUser(data)
         localStorage.setItem('cartify_user', JSON.stringify(data))
-        axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`
+        api.defaults.headers.common['Authorization'] = `Bearer ${data.token}`
         return data
     }
 
     const register = async (name, email, password) => {
-        const { data } = await axios.post('/api/auth/register', { name, email, password })
+        const { data } = await api.post('/api/auth/register', { name, email, password })
         setUser(data)
         localStorage.setItem('cartify_user', JSON.stringify(data))
-        axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`
+        api.defaults.headers.common['Authorization'] = `Bearer ${data.token}`
         return data
     }
 
     const logout = () => {
         setUser(null)
         localStorage.removeItem('cartify_user')
-        delete axios.defaults.headers.common['Authorization']
+        delete api.defaults.headers.common['Authorization']
     }
 
     return (

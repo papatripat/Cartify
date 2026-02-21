@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { LayoutDashboard, Package, ShoppingBag, BarChart3, Plus, Pencil, Trash2, X } from 'lucide-react'
-import axios from 'axios'
+import api from '../../api'
 
 export default function AdminProducts() {
     const [products, setProducts] = useState([])
@@ -21,7 +21,7 @@ export default function AdminProducts() {
     ]
 
     const fetchProducts = () => {
-        axios.get('/api/products')
+        api.get('/api/products')
             .then(res => { setProducts(res.data); setLoading(false) })
             .catch(() => setLoading(false))
     }
@@ -54,9 +54,9 @@ export default function AdminProducts() {
         try {
             const payload = { ...form, price: Number(form.price), stock: Number(form.stock) }
             if (editing) {
-                await axios.put(`/api/products/${editing}`, payload)
+                await api.put(`/api/products/${editing}`, payload)
             } else {
-                await axios.post('/api/products', payload)
+                await api.post('/api/products', payload)
             }
             setShowModal(false)
             fetchProducts()
@@ -68,7 +68,7 @@ export default function AdminProducts() {
     const handleDelete = async (id) => {
         if (!confirm('Delete this product?')) return
         try {
-            await axios.delete(`/api/products/${id}`)
+            await api.delete(`/api/products/${id}`)
             fetchProducts()
         } catch (err) {
             alert('Error deleting product')

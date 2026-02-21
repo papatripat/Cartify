@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { LayoutDashboard, Package, ShoppingBag, BarChart3, AlertTriangle, RefreshCw } from 'lucide-react'
-import axios from 'axios'
+import api from '../../api'
 import { useSocket } from '../../context/SocketContext'
 
 export default function AdminInventory() {
@@ -19,7 +19,7 @@ export default function AdminInventory() {
     ]
 
     const fetchProducts = () => {
-        axios.get('/api/products')
+        api.get('/api/products')
             .then(res => { setProducts(res.data); setLoading(false) })
             .catch(() => setLoading(false))
     }
